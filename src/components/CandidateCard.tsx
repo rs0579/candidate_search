@@ -8,12 +8,12 @@ type CandidateCardProps = {
 const CandidateCard = ({ currentCandidate }: CandidateCardProps) => {
     return (
         <div className='card'>
-            <img src={currentCandidate.avatar_url} alt={`${currentCandidate.username}`} />
+            <img src={currentCandidate.avatar_url as string} alt={`${currentCandidate.username}`} />
             <div className='card-body'>
                 <h3>{currentCandidate.name}</h3>
                 <p>{currentCandidate.company}</p>
                 <p>{currentCandidate.location}</p>
-                <a href={currentCandidate.html_url}>Github Profile</a>
+                <a href={currentCandidate.html_url as string}>Github Profile</a>
             </div>
         </div>
     );

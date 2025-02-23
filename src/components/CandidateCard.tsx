@@ -8,7 +8,7 @@ type CandidateCardProps = {
 const CandidateCard = ({ currentCandidate }: CandidateCardProps) => {
     return (
         <div className='card'>
-            <img src={currentCandidate.avatar_url as string} alt={`${currentCandidate.username}`} />
+            <img src={currentCandidate.avatar_url as string} alt={currentCandidate.username as string} />
             <div className='card-body'>
                 <h3>{currentCandidate.name}</h3>
                 <p>{currentCandidate.company}</p>

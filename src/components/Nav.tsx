@@ -5,13 +5,15 @@ const Nav = () => {
   return (
     <div id='nav'>
       <h3>
-        <Link to="/">
+        <Link to="/"
+        className={currentPage === '/' ? 'active' : 'link'}>
           Home
         </Link>
       </h3>
       <h3>
         <Link
-          to="/potentialcandidates">
+          to="/potentialcandidates"
+          className={currentPage === '/savedcandidates' ? 'active' : 'link'}>
           Potential Candidates
         </Link>
       </h3>

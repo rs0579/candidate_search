@@ -3,8 +3,8 @@ const Nav = () => {
   // TODO: Add necessary code to display the navigation bar and link between the pages
   const currentPage = useLocation().pathname;
   return (
-    <div id='nav'>
-      <h3>
+    <div className='nav'>
+      <h3 className='nav-item'>
         <Link to="/"
         className={currentPage === '/' ? 'active' : 'link'}>
           Home

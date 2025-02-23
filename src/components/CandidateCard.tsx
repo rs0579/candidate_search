@@ -1,16 +1,17 @@
 import react from 'react';
 import Candidate from '../interfaces/Candidate.interface';
 import { BsPlusCircleFill } from "react-icons/bs";
+import { HiMinusCircle } from "react-icons/hi";
+import { searchGithubUser, searchGithub } from '../api/API';
 
 type CandidateCardProps = {
     currentCandidate: Candidate;
-    addNewCandidate?: (() => void) | null;
-    removeCandidate?: ((
+    searchGithubUser?: (() => void) | null;
+    searchGithub?: ((
         e: react.MouseEvent<HTMLButtonElement, MouseEvent>,    ) => void) | null;
-    isSavedCandidate: boolean;
 }
 
-const CandidateCard = ({ currentCandidate, addNewCandidate, removeCandidate, isSavedCandidate }: CandidateCardProps) => {
+const CandidateCard = ({ currentCandidate, searchGithubUser, searchGithub }: CandidateCardProps) => {
     return (
         <div className='card'>
             <img src={currentCandidate.avatar_url} alt={`${currentCandidate.username}`} />
@@ -19,11 +20,6 @@ const CandidateCard = ({ currentCandidate, addNewCandidate, removeCandidate, isS
                 <p>{currentCandidate.company}</p>
                 <p>{currentCandidate.location}</p>
                 <a href={currentCandidate.html_url}>Github Profile</a>
-                {isSavedCandidate ? (
-                    <button onClick={(e) => removeCandidate!(e)}>Remove</button>
-                ) : (
-                    <button onClick={addNewCandidate!}><BsPlusCircleFill style={{backgroundColor: 'red', }}/></button>
-                )}
             </div>
         </div>
     );

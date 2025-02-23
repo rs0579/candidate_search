@@ -8,11 +8,11 @@ import { HiMinusCircle } from "react-icons/hi";
 const CandidateSearch = () => {
   const [candidate, setCandidate] = useState<Candidate>({
     name: '',
+    avatar_url: ''
     username: '',
     location: '',
     html_url: '',
     company: '',
-    avatar_url: ''
   });
   const addGithubUser = () => {
     //ONCE I ADDED IT, I WANT IT TO GO BLANK. ONCES ACTION IS DONE RESET THE STATE.

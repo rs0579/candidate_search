@@ -54,7 +54,7 @@ if (candidate === null || candidate === undefined) {
       <div>
         <CandidateCard currentCandidate={candidate}/>
 
-        <button onClick={() => searchGithub}> <HiMinusCircle /></button>
+        <button onClick={() => searchGithubUser}> <HiMinusCircle /></button>
         <button onClick={() => addGithubUser}><BsPlusCircleFill /></button>
       </div>
     </>
@@ -62,3 +62,76 @@ if (candidate === null || candidate === undefined) {
 }
 
 export default CandidateSearch;
+
+
+
+
+
+
+
+// import { useState, useEffect } from 'react';
+// import { searchGithub } from '../api/API';
+// import { BsPlusCircleFill } from "react-icons/bs";
+// import { Candidate } from '../interfaces/Candidate.interface';
+// import CandidateCard from "../components/CandidateCard";
+// import { HiMinusCircle } from "react-icons/hi";
+
+// const CandidateSearch = () => {
+//   const [candidate, setCandidate] = useState<Candidate | null>(null);
+//   const [noCandidates, setNoCandidates] = useState(false);
+
+//   useEffect(() => {
+//     const fetchCandidate = async () => {
+//       const data = await searchGithub();
+//       if (data) {
+//         setCandidate(data);
+//         setNoCandidates(false);
+//       } else {
+//         setNoCandidates(true);
+//       }
+//     };
+//     fetchCandidate();
+//   }, []);
+
+//   const addGithubUser = async () => {
+//     let newCandidate: Candidate[] = [];
+//     const storedCandidates = localStorage.getItem('newCandidate');
+//     if (storedCandidates) {
+//       newCandidate = JSON.parse(storedCandidates);
+//     }
+//     newCandidate.push(candidate | null);
+//     localStorage.setItem('newCandidate', JSON.stringify(newCandidate));
+    
+//     // Reset the candidate state
+//     setCandidate(null);
+//     // Fetch a new candidate after adding
+//     const data = await searchGithub();
+//     setCandidate(data);
+//   };
+
+//   const fetchNextCandidate = async () => {
+//     const data = await searchGithub();
+//     if (data) {
+//       setCandidate(data);
+//       setNoCandidates(false);
+//     } else {
+//       setNoCandidates(true);
+//     }
+//   };
+
+//   return (
+//     <>
+//       <h1>Candidate Search</h1>
+//       {noCandidates && <p>No more candidates available</p>}
+//       {candidate && (
+//         <div>
+//           <CandidateCard currentCandidate={candidate} />
+//           <button onClick={fetchNextCandidate}> <HiMinusCircle /> </button>
+//           <button onClick={addGithubUser}> <BsPlusCircleFill /> </button>
+//         </div>
+//       )}
+//     </>
+//   );
+// };
+
+// export default CandidateSearch

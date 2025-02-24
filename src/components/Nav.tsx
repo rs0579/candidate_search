@@ -12,7 +12,7 @@ const Nav = () => {
       </h3>
       <h3>
         <Link
-          to="/potentialcandidates"
+          to="/savedcandidates"
           className={currentPage === '/savedcandidates' ? 'active' : 'link'}>
           Potential Candidates
         </Link>

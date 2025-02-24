@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { searchGithub, searchGithubUser } from '../api/API';
 import { BsPlusCircleFill } from "react-icons/bs";
-import Candidate from '../interfaces/Candidate.interface';
+import {Candidate} from '../interfaces/Candidate.interface';
 import CandidateCard from "../components/CandidateCard"
 import { HiMinusCircle } from "react-icons/hi";
 
@@ -14,10 +14,13 @@ const CandidateSearch = () => {
     html_url: '',
     company: ''
   });
-  // useEffect(() => {
-  //   setCandidate(candidate);
-  // }
-  //   , []);
+  useEffect(() => {
+    searchGithub().then((data) => {
+      console.log(data);
+      setCandidate(data)
+    });
+  }
+    , []);
   const addGithubUser = async () => {
     //ONCE I ADDED IT, I WANT IT TO GO BLANK. ONCES ACTION IS DONE RESET THE STATE.
     //WHEN I click the "+" button THEN the candidate should be saved to the list of potential candidates and the next candidate's information should be displayed
@@ -49,7 +52,7 @@ if (candidate === null || candidate === undefined) {
     <>
       <h1>CandidateSearch</h1>
       <div>
-        <CandidateCard />
+        <CandidateCard currentCandidate={candidate}/>
 
         <button onClick={() => searchGithub}> <HiMinusCircle /></button>
         <button onClick={() => addGithubUser}><BsPlusCircleFill /></button>
@@ -59,26 +62,3 @@ if (candidate === null || candidate === undefined) {
 }
 
 export default CandidateSearch;
-
-
-
-{/* */ }
-
-
-
-
-// const CandidateSearch = () => {
-//   const [candidates, setCandidates] = useState([]);
-//   const [searchTerm, setSearchTerm] = useState('');
-//   const [selectedCandidate, setSelectedCandidate] = useState({});
-
-//   useEffect(() => {
-//     searchGithub().then((data) => {
-//       setCandidates(data);
-//     });
-//   }, []);
-
-//   const handleSearch = async () => {
-//     const data = await searchGithubUser(searchTerm);
-//     setSelectedCandidate(data);
-//   };

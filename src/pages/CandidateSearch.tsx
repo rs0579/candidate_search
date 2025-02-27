@@ -25,30 +25,48 @@ const CandidateSearch = () => {
     console.log('test123');
     //ONCE I ADDED IT, I WANT IT TO GO BLANK. ONCES ACTION IS DONE RESET THE STATE.
     //WHEN I click the "+" button THEN the candidate should be saved to the list of potential candidates and the next candidate's information should be displayed
-    let newCadidate: Candidate[] = [];
-    const storeNewCandidate = localStorage.getItem('newCandidate');
-    if (storeNewCandidate === 'string') {
-      newCadidate = JSON.parse(storeNewCandidate);
-    }
-    newCadidate.push(candidate);
-    localStorage.setItem('newCandidate', JSON.stringify(newCadidate));
+    if (candidate.login) {
+      const fullCandidate = await searchGithubUser(candidate.login);
+      //wHAT DOES THE ABOVE DO: IT WILL SEARCH FOR A CANDIDATE USING ITS LOGIN AND RETURN THE FULL CANDIDATE OBJECT
+      let newCadidates: Candidate[] = [];
+      //WHAT DOES THE ABOVE DO: IT WILL CREATE A NEW ARRAY OF CANDIDATES FOR THE NEW CANDIDATES
+      //THE CODE BELOW WILL CHECK IF THERE ARE ANY NEW CANDIDATES IN LOCAL STORAGE AND IF THERE ARE, IT WILL ADD THE NEW CANDIDATE TO THE ARRAY
+      const storeNewCandidates = localStorage.getItem('newCandidates');
+      if (storeNewCandidates) {
+        newCadidates = JSON.parse(storeNewCandidates);
+      }
+      newCadidates.push(fullCandidate);
+      //THE BELOW CODE WILL SAVE THE NEW CANDIDATES TO LOCAL STORAGE AS STATED ABOVE.
+      localStorage.setItem('newCandidates', JSON.stringify(newCadidates));
 //SINCE I WANT THE ENTIRE INTERFACE TO BE RESET, I WILL RESET THE STATE TO THE INITIAL STATE
-    setCandidate({
-      login: '',
-      avatar_url: '',
-      username: '',
-      location: '',
-      html_url: '',
-      company: ''
-    });
-    searchGithub().then((response) => {
-      console.log(response);
-      setCandidate(response[0])
+      setCandidate({
+        login: '',
+        avatar_url: '',
+        username: '',
+        location: '',
+        html_url: '',
+        company: ''
+      });
+      searchGithub().then((response) => {
+        console.log(response);
+        setCandidate(response[0])
+      });
+    } else {
+      console.error('Candidate login is null or undefined');
     }
-    );
   }
 //WHEN I click the "-" button THEN the next candidate's information should be displayed without saving the current candidate
-
+const fetchNextCandidate = async () => {
+  //THIS IS THE NEWEST FUNCTION THAT I CREATED. IT WILL FETCH THE NEXT CANDIDATE AND DISPLAY IT. iT WAS THE MISSING PIECE THAT I NEEDED TO MAKE THE MINUS BUTTON WORK
+  try {
+    const response = await searchGithub();
+    if (response.length > 0) {
+      setCandidate(response[0]);
+    }
+  } catch (error) {
+    console.error('An error occurred while fetching the next candidate', error);
+  }
+}
 //WHEN there are no candidates available to review THEN an appropriate message should be shown indicating no more candidates are available
 if (candidate === null || candidate === undefined) {
   throw new Error('No more candidates available');
@@ -58,9 +76,10 @@ if (candidate === null || candidate === undefined) {
     <>
       <h1>CandidateSearch</h1>
       <div>
+      {/* I'M PASSING THE CURRENT CANDIDATE TO THE CANDIDATE CARD COMPONENT TO DISPLAY THE CANDIDATE'S INFORMATION. ADDING THIS PROP IS ESSENTIAL BECAUSE WITHOUT IT, THE CANDIDATE CARD COMPONENT WILL NOT DISPLAY ANYTHING. CURRENTCADIDATE COMES FROM THE CANDIDATE CARD. */}
         <CandidateCard currentCandidate={candidate}/>
 
-        <button onClick={() => searchGithubUser('rs0579')}> <HiMinusCircle /></button>
+        <button onClick={fetchNextCandidate}> <HiMinusCircle /></button>
         <button onClick={addGithubUser}><BsPlusCircleFill /></button>
       </div>
     </>

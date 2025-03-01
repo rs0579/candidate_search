@@ -20,26 +20,26 @@ const SavedCandidates = () => {
     setCandidates(storedCandidate as any);
   }
     , []);
-  const removeCandidate = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-    e.preventDefault()
-    //delete the selected row frOm the candidate array IN LOCAL STORAGE: either with the login or some other value:  maybe using a filter method
-    // const newCandidates = candidates.filter((candidate: Candidate) => candidate.login !== candidate.login)
-     localStorage.removeItem('candidate');
-
-    //set the candidates state back to the new array of candidates : USE SETCANIDADTE TO SET THE NEW ARRAY OF CANDIDATES
-    setCandidates(candidates);
-
-  }
+    const removeCandidate = (login: string) => {
+      // Filter out the candidate to be removed
+      const newCandidates = candidates.filter((candidate: Candidate) => candidate.login !== login);
+      
+      // Update local storage with the new candidates array
+      localStorage.setItem('newCandidates', JSON.stringify(newCandidates));
+      
+      // Set the candidates state to the new array of candidates
+      setCandidates(newCandidates);
+    }
   const tableRow = candidates.map((candidate: Candidate) => { 
     return(
       <tr>
       <td><img src={candidate.avatar_url as string} alt={candidate.login as string} /></td>
       <td>{candidate.login}</td>
       <td>{candidate.location}</td>
-      <td>{candidate.email}</td>
+      <td className="email">{candidate.email}</td>
       <td>{candidate.company}</td>
       <td>{candidate.bio}</td>
-      <td><button onClick={removeCandidate}><FcCancel /></button></td>
+      <td><button className="remove" onClick={() => removeCandidate(candidate.login as string)}><FcCancel /></button></td>
     </tr>
     )
   })

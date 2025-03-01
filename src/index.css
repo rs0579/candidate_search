@@ -122,3 +122,9 @@ img {
   width: 100%;
   height: auto;
 }
+.email {
+  word-wrap: break-word;
+}
+.remove {
+  align-content: center;
+}

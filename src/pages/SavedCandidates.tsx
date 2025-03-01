@@ -39,7 +39,7 @@ const SavedCandidates = () => {
       <td className="email">{candidate.email}</td>
       <td>{candidate.company}</td>
       <td>{candidate.bio}</td>
-      <td><button className="remove" onClick={() => removeCandidate(candidate.login as string)}><FcCancel /></button></td>
+      <td><button className="remove" onClick={() => removeCandidate(candidate.login as string )}><FcCancel /></button></td>
     </tr>
     )
   })

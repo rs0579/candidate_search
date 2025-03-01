@@ -6,5 +6,7 @@ export interface Candidate {
     location?: string | null;
     html_url: string | null;
     company?: string | null;
+    email?: string | null;
+    bio?: string | null;
 }
 // export default Candidate;
